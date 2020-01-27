@@ -1,4 +1,4 @@
-package com.prabha.etl;
+package com.prabha.dsl.dir;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

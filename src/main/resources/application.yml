@@ -1,0 +1,14 @@
+sbt.dsl:
+  dir:
+    incoming: D:\\samples\\incoming
+    processing: D:\\samples\\processing
+  jms:
+    brokerUrl: tcp://localhost:61616
+    username: admin
+    password: admin
+    queue: test.queue
+  kafka:
+    ip: localhost
+    port: 9092
+    group-id: group_id
+    topic: test

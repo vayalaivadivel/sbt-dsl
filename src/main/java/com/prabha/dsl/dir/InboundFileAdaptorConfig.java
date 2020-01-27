@@ -1,8 +1,11 @@
-package com.prabha.etl;
+package com.prabha.dsl.dir;
 
 import java.io.File;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -31,13 +34,18 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class InboundFileAdaptorConfig {
 
 	@Autowired
-	public File inboundIncomingDirectory;
-
-	@Autowired
-	public File inboundProcessingDirectory; 
-
-	@Autowired
 	private ETLFileHandler fileHandler;
+
+	@Value("${sbt.dsl.dir.incoming}")
+	private String incoming;
+
+	@Value("${sbt.dsl.dir.processing}")
+	private String processing;
+
+	@PostConstruct
+	private void init() {
+		makeDirectory(processing);
+	}
 
 	@Bean
 	public IntegrationFlow inboundFileIntegration(TaskExecutor taskExecutor,
@@ -56,7 +64,7 @@ public class InboundFileAdaptorConfig {
 	@Bean
 	public FileReadingMessageSource fileReadingMessageSource(DirectoryScanner directoryScanner) {
 		final FileReadingMessageSource source = new FileReadingMessageSource();
-		source.setDirectory(this.inboundIncomingDirectory);
+		source.setDirectory(makeDirectory(incoming));
 		source.setScanner(directoryScanner);
 		source.setAutoCreateDirectory(true);
 		return source;
@@ -70,17 +78,7 @@ public class InboundFileAdaptorConfig {
 		scanner.setFilter(filters);
 		return scanner;
 	}
-
-	@Bean(name = "inboundIncomingDirectory")
-	public File inboundIncomingDirectory() {
-		return makeDirectory("D:\\etl\\incoming");
-	}
-
-	@Bean(name = "inboundProcessingDirectory")
-	public File inboundProcessingDirectory() {
-		return makeDirectory("D:\\etl\\processing");
-	}
-
+	
 	private File makeDirectory(String path) {
 		final File file = new File(path);
 		if (!file.exists()) {
@@ -88,6 +86,5 @@ public class InboundFileAdaptorConfig {
 		}
 		return file;
 	}
-	
-	
+
 }

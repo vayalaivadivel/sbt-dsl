@@ -1,4 +1,4 @@
-package com.prabha.etl;
+package com.prabha.dsl.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prabha.dsl.dir.FileHandlerException;
 
 /**
  * <p>
@@ -27,12 +28,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Vadivel
  *
  */
-public class DMUtils {
+public class CommonUtils {
 
 	public static final String DOT_STR = ".";
 	public static final String UNDERSCORE_STR = "_";
 
-	private static final Logger LOG = LoggerFactory.getLogger(DMUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CommonUtils.class);
 	private static final DateFormat FORMATTER_WITH_TIME_STAMP_SECONDS = new SimpleDateFormat("yyyyMMdd'_'HHmmss");
 	public static final String INBOUND_CHANNEL = "inbound-channel";
 

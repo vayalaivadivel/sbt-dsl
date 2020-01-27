@@ -1,13 +1,13 @@
-package com.prabha.etl;
+package com.prabha.dsl;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ETLApplicationTests {
+public class ETLApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 }
